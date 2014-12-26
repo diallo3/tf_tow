@@ -5,6 +5,12 @@
  * @package _mbbasetheme
  */
 
+/* Load the class file. */
+require_once( trailingslashit( get_template_directory() ) . 'hybrid-core/hybrid.php' );
+
+/* Call the class. */
+new Hybrid();
+
 /****************************************
 Theme Setup
 *****************************************/

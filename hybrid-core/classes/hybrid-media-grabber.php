@@ -9,18 +9,25 @@
  * and display it on archive pages alongside the post excerpt or pull it out of the content to display 
  * it above the post on single post views.
  *
- * @package    Hybrid
- * @subpackage Classes
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2008 - 2014, Justin Tadlock
- * @link       http://themehybrid.com/hybrid-core
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * This program is free software; you can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License as published by the Free Software Foundation; either version 2 of the License, 
+ * or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * @package   HybridMediaGrabber
+ * @version   0.1.0
+ * @author    Justin Tadlock <justin@justintadlock.com>
+ * @copyright Copyright (c) 2013, Justin Tadlock
+ * @link      http://themehybrid.com
+ * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /**
  * Wrapper function for the Hybrid_Media_Grabber class.  Returns the HTML output for the found media.
  *
- * @since  1.6.0
+ * @since  0.1.0
  * @access public
  * @param  array
  * @return string
@@ -35,7 +42,7 @@ function hybrid_media_grabber( $args = array() ) {
 /**
  * Grabs media related to the post.
  *
- * @since  1.6.0
+ * @since  0.1.0
  * @access public
  * @return void
  */
@@ -44,7 +51,7 @@ class Hybrid_Media_Grabber {
 	/**
 	 * The HTML version of the media to return.
 	 *
-	 * @since  1.6.0
+	 * @since  0.1.0
 	 * @access public
 	 * @var    string
 	 */
@@ -53,7 +60,7 @@ class Hybrid_Media_Grabber {
 	/**
 	 * The original media taken from the post content.
 	 *
-	 * @since  1.6.0
+	 * @since  0.1.0
 	 * @access public
 	 * @var    string
 	 */
@@ -62,7 +69,7 @@ class Hybrid_Media_Grabber {
 	/**
 	 * The type of media to get.  Current supported types are 'audio' and 'video'.
 	 *
-	 * @since  1.6.0
+	 * @since  0.1.0
 	 * @access public
 	 * @var    string
 	 */
@@ -71,7 +78,7 @@ class Hybrid_Media_Grabber {
 	/**
 	 * Arguments passed into the class and parsed with the defaults.
 	 *
-	 * @since  1.6.0
+	 * @since  0.1.0
 	 * @access public
 	 * @var    array
 	 */
@@ -80,7 +87,7 @@ class Hybrid_Media_Grabber {
 	/**
 	 * The content to search for embedded media within.
 	 *
-	 * @since  1.6.0
+	 * @since  0.1.0
 	 * @access public
 	 * @var    string
 	 */
@@ -89,7 +96,7 @@ class Hybrid_Media_Grabber {
 	/**
 	 * Constructor method.  Sets up the media grabber.
 	 *
-	 * @since  1.6.0
+	 * @since  0.1.0
 	 * @access public
 	 * @global object $wp_embed
 	 * @global int    $content_width
@@ -127,7 +134,7 @@ class Hybrid_Media_Grabber {
 	/**
 	 * Destructor method.  Removes filters we needed to add.
 	 *
-	 * @since  1.6.0
+	 * @since  0.1.0
 	 * @access public
 	 * @return void
 	 */
@@ -138,7 +145,7 @@ class Hybrid_Media_Grabber {
 	/**
 	 * Basic method for returning the media found.
 	 *
-	 * @since  1.6.0
+	 * @since  0.1.0
 	 * @access public
 	 * @return string
 	 */
@@ -149,19 +156,14 @@ class Hybrid_Media_Grabber {
 	/**
 	 * Tries several methods to find media related to the post.  Returns the found media.
 	 *
-	 * @since  1.6.0
+	 * @since  0.1.0
 	 * @access public
 	 * @return void
 	 */
 	public function set_media() {
 
-		/* Get the media if the post type is an attachment. */
-		if ( 'attachment' === get_post_type( $this->args['post_id'] ) )
-			$this->do_attachment_media();
-
 		/* Find media in the post content based on WordPress' media-related shortcodes. */
-		if ( empty( $this->media ) )
-			$this->do_shortcode_media();
+		$this->do_shortcode_media();
 
 		/* If no media is found and autoembeds are enabled, check for autoembeds. */
 		if ( empty( $this->media ) && get_option( 'embed_autourls' ) )
@@ -200,7 +202,7 @@ class Hybrid_Media_Grabber {
 	 * method figures out the shortcode used in the content.  Once it's found, the appropriate method for 
 	 * the shortcode is executed.
 	 *
-	 * @since  1.6.0
+	 * @since  0.1.0
 	 * @access public
 	 * @return void
 	 */
@@ -215,14 +217,8 @@ class Hybrid_Media_Grabber {
 			foreach ( $matches as $shortcode ) {
 
 				/* Call the method related to the specific shortcode found and break out of the loop. */
-				if ( in_array( $shortcode[2], array( 'playlist', 'embed', $this->type ) ) ) {
+				if ( in_array( $shortcode[2], array( 'embed', $this->type ) ) ) {
 					call_user_func( array( $this, "do_{$shortcode[2]}_shortcode_media" ), $shortcode );
-					break;
-				}
-
-				/* Check for Jetpack audio/video shortcodes. */
-				elseif ( in_array( $shortcode[2], array( 'blip.tv', 'dailymotion', 'flickr', 'ted', 'vimeo', 'vine', 'youtube', 'wpvideo', 'soundcloud', 'bandcamp' ) ) ) {
-					$this->do_jetpack_shortcode_media( $shortcode );
 					break;
 				}
 			}
@@ -230,24 +226,9 @@ class Hybrid_Media_Grabber {
 	}
 
 	/**
-	 * Handles the output of the WordPress playlist feature.  This searches for the [playlist] shortcode 
-	 * if it's used in the content.
-	 *
-	 * @since  2.0.0
-	 * @access public
-	 * @return void
-	 */
-	public function do_playlist_shortcode_media( $shortcode ) {
-
-		$this->original_media = array_shift( $shortcode );
-
-		$this->media = do_shortcode( $this->original_media );
-	}
-
-	/**
 	 * Handles the HTML when the [embed] shortcode is used.
 	 *
-	 * @since  1.6.0
+	 * @since  0.1.0
 	 * @access public
 	 * @param  array  $shortcode
 	 * @return void
@@ -265,7 +246,7 @@ class Hybrid_Media_Grabber {
 	/**
 	 * Handles the HTML when the [audio] shortcode is used.
 	 *
-	 * @since  1.6.0
+	 * @since  0.1.0
 	 * @access public
 	 * @param  array  $shortcode
 	 * @return void
@@ -280,7 +261,7 @@ class Hybrid_Media_Grabber {
 	/**
 	 * Handles the HTML when the [video] shortcode is used.
 	 *
-	 * @since  1.6.0
+	 * @since  0.1.0
 	 * @access public
 	 * @param  array  $shortcode
 	 * @return void
@@ -294,24 +275,9 @@ class Hybrid_Media_Grabber {
 	}
 
 	/**
-	 * Handles the output of audio/video shortcodes included with the Jetpack plugin (or Jetpack 
-	 * Slim) via the Shortcode Embeds feature.
-	 *
-	 * @since  2.0.0
-	 * @access public
-	 * @return void
-	 */
-	public function do_jetpack_shortcode_media( $shortcode ) {
-
-		$this->original_media = array_shift( $shortcode );
-
-		$this->media = do_shortcode( $this->original_media );
-	}
-
-	/**
 	 * Uses WordPress' autoembed feature to automatically to handle media that's just input as a URL.
 	 *
-	 * @since  1.6.0
+	 * @since  0.1.0
 	 * @access public
 	 * @return void
 	 */
@@ -340,7 +306,7 @@ class Hybrid_Media_Grabber {
 	 * Grabs media embbeded into the content within <iframe>, <object>, <embed>, and other HTML methods for 
 	 * embedding media.
 	 *
-	 * @since  1.6.0
+	 * @since  0.1.0
 	 * @access public
 	 * @return void
 	 */
@@ -356,7 +322,7 @@ class Hybrid_Media_Grabber {
 	 * Gets media attached to the post.  Then, uses the WordPress [audio] or [video] shortcode to handle 
 	 * the HTML output of the media.
 	 *
-	 * @since  1.6.0
+	 * @since  0.1.0
 	 * @access public
 	 * @return void
 	 */
@@ -380,26 +346,10 @@ class Hybrid_Media_Grabber {
 	}
 
 	/**
-	 * If the post type itself is an attachment, run the shortcode for the media type.
-	 *
-	 * @since  2.0.0
-	 * @access public
-	 * @return void
-	 */
-	public function do_attachment_media() {
-
-		/* Gets the URI for the attachment (the media file). */
-		$url = wp_get_attachment_url( $this->args['post_id'] );
-
-		/* Run the media as a shortcode using WordPress' built-in [audio] and [video] shortcodes. */
-		$this->media = do_shortcode( "[{$this->type} src='{$url}']" );
-	}
-
-	/**
 	 * Removes the found media from the content.  The purpose of this is so that themes can retrieve the 
 	 * media from the content and display it elsewhere on the page based on its design.
 	 *
-	 * @since  1.6.0
+	 * @since  0.1.0
 	 * @access public
 	 * @param  string  $content
 	 * @return string
@@ -415,17 +365,15 @@ class Hybrid_Media_Grabber {
 	 * Method for filtering the media's 'width' and 'height' attributes so that the theme can handle the 
 	 * dimensions how it sees fit.
 	 *
-	 * @since  1.6.0
+	 * @since  0.1.0
 	 * @access public
 	 * @param  string  $html
 	 * @return string
 	 */
 	public function filter_dimensions( $html ) {
 
-		$_html = strip_tags( $html, '<object><embed><iframe><video>' );
-
 		/* Find the attributes of the media. */
-		$atts = wp_kses_hair( $_html, array( 'http', 'https' ) );
+		$atts = wp_kses_hair( $html, array( 'http', 'https' ) );
 
 		/* Loop through the media attributes and add them in key/value pairs. */
 		foreach ( $atts as $att )
@@ -465,16 +413,14 @@ class Hybrid_Media_Grabber {
 		$patterns = array(
 			'/(width=[\'"]).+?([\'"])/i',
 			'/(height=[\'"]).+?([\'"])/i',
-			'/(<div.+?style=[\'"].*?width:.+?).+?(px;.+?[\'"].*?>)/i',
-			'/(<div.+?style=[\'"].*?height:.+?).+?(px;.+?[\'"].*?>)/i'
+			'/(<div.+?style=[\'"].*?width:.+?).+?(px;.+?[\'"].*?>)/i'
 		);
 
 		/* Set up the replacements for the 'width' and 'height' attributes. */
 		$replacements = array(
 			'${1}' . $width . '${2}',
 			'${1}' . $height . '${2}',
-			'${1}' . $width . '${2}',
-			'${1}' . $height . '${2}',
+			'${1}' . $width . '${2}'
 		);
 
 		/* Filter the dimensions and return the media HTML. */
@@ -486,7 +432,7 @@ class Hybrid_Media_Grabber {
 	 * with custom-sized embeds.  So, we need to adjust this the best we can.  Right now, the only 
 	 * embed size that works for full-width embeds is the "compact" player (height of 80).
 	 *
-	 * @since  1.6.0
+	 * @since  0.1.0
 	 * @access public
 	 * @param  array   $media_atts
 	 * @return array
@@ -502,3 +448,5 @@ class Hybrid_Media_Grabber {
 		return array( $max_width, $max_height );
 	}
 }
+
+?>

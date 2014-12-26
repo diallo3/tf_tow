@@ -42,7 +42,9 @@ function _mbbasetheme_setup() {
 	// Register nav menus
 	register_nav_menus( array(
 		'primary' => __( 'Primary Menu', 'mbbasetheme' ),
-	) );
+		'secondary' => __( 'Secondary Menu', 'mbbasetheme' ),
+		) 
+	);
 
 	// Register Widget Areas
 	// Function location: /lib/theme-functions.php
@@ -64,12 +66,6 @@ function _mbbasetheme_setup() {
 
 	// Add Image Sizes
 	// add_image_size( $name, $width = 0, $height = 0, $crop = false );
-
-	// Setup the WordPress core custom background feature.
-	add_theme_support( 'custom-background', apply_filters( '_mbbasetheme_custom_background_args', array(
-		'default-color' => 'ffffff',
-		'default-image' => '',
-	) ) );
 
 	// Remove Dashboard Meta Boxes
 	// Function location: /lib/theme-functions.php
@@ -95,7 +91,7 @@ function _mbbasetheme_setup() {
 
 	// Enable support for Post Formats.
 	add_theme_support( 'post-formats', array(
-		'aside', 'image', 'video', 'quote', 'link',
+		'image', 'video', 'quote',
 	) );
 
 	// Enqueue scripts
@@ -110,6 +106,28 @@ function _mbbasetheme_setup() {
 	// Remove Read More Jump
 	// Function location: /lib/theme-functions.php
 	add_filter( 'the_content_more_link', 'mb_remove_more_jump_link' );
+
+	/* Add theme support for framework features. */
+	add_theme_support( 'hybrid-core-post-meta-box' );
+	add_theme_support( 'hybrid-core-seo' );
+	add_theme_support( 'hybrid-core-template-hierarchy' );
+	add_theme_support( 'hybrid-core-widgets' );
+
+	/* Add theme support for framework extensions. */
+	add_theme_support( 'custom-field-series' );
+	add_theme_support( 'post-layouts' );
+	add_theme_support( 'post-stylesheets' );
+	add_theme_support( 'loop-pagination' );
+	add_theme_support( 'get-the-image' );
+	add_theme_support( 'breadcrumb-trail' );
+	add_theme_support( 'entry-views' );
+	add_theme_support( 'theme-layouts', array(
+			'1c'        => __( '1 Column',                     '_mbbasetheme' ),
+			'2c-l'      => __( '2 Columns: Content / Sidebar', '_mbbasetheme' ),
+			'2c-r'      => __( '2 Columns: Sidebar / Content', '_mbbasetheme' )
+		),
+		array( 'default' => is_rtl() ? '2c-r' :'2c-l' ) 
+	);
 
 }
 endif; // _mbbasetheme_setup
