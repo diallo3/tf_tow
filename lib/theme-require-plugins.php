@@ -8,6 +8,14 @@ function mb_register_required_plugins() {
 	$plugins = array(
 
 		array(
+            'name'               => 'Advanced Custom Fields Pro',
+            'slug'               => 'advanced-custom-fields-pro', // The plugin slug (typically the folder name).
+            'source'             => get_stylesheet_directory() . '/lib/plugs/advanced-custom-fields-pro.zip', // The plugin source.
+            'required'           => true,
+            'force_activation'   => true
+        ),
+
+		array(
 			'name' 				=> 'WordPress SEO by Yoast',
 			'slug' 				=> 'wordpress-seo',
 			'required' 			=> true,
@@ -17,6 +25,27 @@ function mb_register_required_plugins() {
 		array(
 			'name' 				=> 'Pods - Custom Content Types and Fields',
 			'slug' 				=> 'pods',
+			'required' 			=> true,
+			'force_activation'	=> true
+		),
+
+		array(
+			'name' 				=> 'Codepress Admin Columns',
+			'slug' 				=> 'codepress-admin-columns',
+			'required' 			=> true,
+			'force_activation'	=> true
+		),
+
+		array(
+			'name' 				=> 'Tabify Edit Screen',
+			'slug' 				=> 'tabify-edit-screen',
+			'required' 			=> true,
+			'force_activation'	=> true
+		),
+
+		array(
+			'name' 				=> 'Duplicator',
+			'slug' 				=> 'duplicator',
 			'required' 			=> true,
 			'force_activation'	=> true
 		),
