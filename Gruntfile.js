@@ -87,7 +87,7 @@ module.exports = function(grunt) {
                         'assets/js/source/plugins.js',
                         'assets/js/vendor/navigation.js',
                         'assets/js/vendor/skip-link-focus-fix.js',
-                        // 'assets/js/vendor/yourplugin/yourplugin.js',
+                        //'assets/js/vendor/yourplugin/yourplugin.js',
                     ]
                 }
             },

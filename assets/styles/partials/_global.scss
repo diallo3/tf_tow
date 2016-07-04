@@ -1,0 +1,66 @@
+html, body {
+	@include f_osr();
+	background-color: $black;
+	-webkit-backface-visibility: hidden; // Addresses a small issue in webkit: http://bit.ly/NEdoDq
+	-webkit-font-smoothing: antialiased;
+	height: 100% !important;
+	position: relative;
+
+	.reveal_full {
+		@include viewpoint();
+		background-color: black(0.85);
+		max-width: 100vw;
+		overflow: scroll;
+		position: fixed;
+		top: 0 !important;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
+
+}
+
+.animated {
+	@include animate-prefixer(animation-duration, $base-duration);
+	@include animate-prefixer(animation-fill-mode, both);
+
+	&.hinge {
+		@include animate-prefixer(animation-duration, $base-duration * 2);
+	}
+}
+
+@include headings(){
+    @include f_cmp();
+    margin-top: 0;
+}
+
+.tint {
+	@include abs_pos(0, 0, 0, 0);
+	background-color: black(0.4);
+	width: 100%;
+	height: 100%;
+}
+
+figure {
+	margin: 0;
+}
+
+.btn {
+	@include button(#fff, transparent, $bdcolor: #fff, $v_padding: 1em, $h_padding: 1em);;
+
+}
+
+.hidden {
+	opacity: 0;
+}
+
+.visible{
+	opacity: 1;
+}
+
+.block {
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}

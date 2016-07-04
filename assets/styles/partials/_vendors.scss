@@ -1,0 +1,17 @@
+.vendor {
+	@include grid_row();
+	.entry {
+		@include grid_column(10, $center:true);
+	}
+	.urls {
+		@include grid_row($behavior: nest);
+		margin-bottom: 1em;
+		.web {
+			@include grid_column(8);
+		}
+		.fb {
+			@include grid_column(4);
+			text-align: right;
+		}
+	}
+}

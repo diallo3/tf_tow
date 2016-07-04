@@ -1,0 +1,122 @@
+.reveal-modal {
+	@include bp(small) {
+		padding-left: 0.3em;
+		padding-right: 0.3em;
+	}
+}
+
+.no_label {
+	label {
+		display: none;
+	}
+}
+
+.form_container {
+	@include grid_row();
+	text-align: center;
+	* {
+		color: $white;
+	}
+	.form {
+		@include grid_column(12, $center: true);
+		@include bp(medium_up) {
+			@include grid_column(6, $center: true);
+		}
+		.title {
+			font-size: 1.1rem;
+			margin: 0 auto;
+			padding: 1em 0;
+			width: 60%;
+			@include bp(medium_up) {
+				font-size: rem(18px);
+				padding: 0;
+				width: 100%;
+			}
+		}
+		p {
+			font-size: rem(14px);
+			@include bp(medium_up) {
+				font-size: rem(16px);
+			}
+		}
+	}
+	.gform_wrapper {
+		.gform_body {
+			@include gf_reset();
+			.gfield_label {
+				display: none;
+			}
+			li {
+				margin-bottom: 0.5em;
+			}
+			.avail_days {
+				@include center_block();
+				text-align: center;
+				width: 50%;
+				@include bp(medium_up) {
+					width: 30%;
+				}
+				.gfield_label {
+					color: $yel;
+					font-weight: bold;
+					text-align: center;
+					display: block;
+				}
+				ul {
+					padding-left: em(25px);
+					@include bp(medium_up) {
+						padding-left: 1.5em;
+					}
+					li {
+						text-align: left;
+						display: block;
+					}
+				}
+			}
+		}
+		input, select {
+			text-align: center;
+			background-color: transparent;
+			border: 1px solid $white;
+			padding: 1.2em;
+			width: 100%;
+			&:focus {
+				color: $yel;
+				background-color: black(0.6);
+				border: 1px solid $white;
+				outline: none !important;
+				@include placeholder {
+				   color: $yel;
+				}
+			}
+		}
+		input[type=checkbox], input[type=radio] {
+			width: 15px; 
+			height: 15px;
+ 			border: 1px solid #bbb;
+		}
+		select {
+			border: 0;
+			padding: 0;
+			height: 50px;
+			option {
+				text-align: center;
+			}
+		}
+		.preferred {
+			border: 1px solid $white;
+		}
+		@include placeholder {
+		   color: $white;
+		}
+		.gform_footer {
+			text-align: center;
+			.button {
+				width: 60%;
+				@include bp(medium_up) {
+					width: 30%;
+				}
+			}
+		}
+	}
+}

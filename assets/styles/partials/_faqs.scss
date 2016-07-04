@@ -1,0 +1,6 @@
+.faq {
+	@include grid_row();
+	.entry {
+		@include grid_column(12);
+	}
+}

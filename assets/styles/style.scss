@@ -23,9 +23,12 @@ Use it to make something cool, have fun, and share what you've learned with othe
 // Bourbon
 @import "bourbon/bourbon";
 
+@import "animate-sass/animate";
+@import "partials/web-fonts";
+
 // DO NOT EDIT ORDER OF FILES
-@import "partials/mixins";
 @import "partials/variables";
+@import "partials/mixins";
 @import "partials/normalize";
 
 @import "partials/foundation";
@@ -33,4 +36,25 @@ Use it to make something cool, have fun, and share what you've learned with othe
 // Globals
 @import "partials/h5bp-global";
 
+@import "partials/global";
+@import "partials/header";
+@import "partials/footer";
+@import "partials/home";
+@import "partials/forms";
+@import "partials/events";
+@import "partials/faqs";
+@import "partials/vendors";
+@import "partials/externals";
 @import "partials/print";
+
+
+// Page General
+.content-area {
+	background-color: $black;
+	@include bp(medium_up) {
+		margin-bottom: 100vh;
+		min-height: 100vh;
+	}
+	position: relative;
+	z-index: 1;
+}

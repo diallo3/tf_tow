@@ -3,12 +3,57 @@
    ========================================================================== */
 
 /*
+ * Mixin for site fonts
+*/
+@include font-face("CM Pradaesque", "#{$fontPath}/cmp/cm_pradaesque-webfont");
+// @include font-face("Open Sans Regular", "#{$fontPath}/ops/opensans_regular/OpenSans-Regular-webfont");
+// @include font-face("Open Sans Light", "#{$fontPath}/ops/opensans_light/OpenSans-Light-webfont");
+// @include font-face("Open Sans Italic", "#{$fontPath}/ops/opensans_italic/OpenSans-Italic-webfont");
+// @include font-face("Open Sans SemiBold", "#{$fontPath}/ops/opensans_semibold/OpenSans-SemiBold-webfont");
+// @include font-face("Open Sans Bold", "#{$fontPath}/ops/opensans_bold/OpenSans-Bold-webfont");
+
+@mixin f_cmp {
+	font-family: 'CM Pradaesque', 'Times New Roman', serif;
+}
+
+@mixin f_osr {
+	font-family: $open-sans;
+}
+
+@mixin f_osi {
+	font-family: $open-sans;
+	font-style: italic;
+}
+
+@mixin f_ossb {
+	font-family: $open-sans;
+	font-weight: 600;
+}
+
+@mixin f_osb {
+	font-family: $open-sans;
+	font-weight: 700;
+}
+
+@mixin headings($from: 1, $to: 6){
+    @for $i from $from through $to{
+      h#{$i}{
+        @content
+      }
+    }
+}
+
+
+/*
  * Mixin for easy media queries
  * @include bp(tablet) { SCSS here };
 */
 @mixin bp($media) {
 	@if $media == large {
-		@media (min-width: 1025px) and (max-width: 1600px) { @content; }
+		@media (min-width: 1025px) { @content; }
+	}
+	@else if $media == medium_up {
+		@media (min-width: 641px) { @content; }
 	}
 	@else if $media == medium {
 		@media (min-width: 641px) and (max-width: 1024px) { @content; }
@@ -16,6 +61,121 @@
 	@else if $media == small {
 		@media (max-width: 640px) { @content; }
 	}
+}
+
+@mixin side_lines {
+	text-align: center;
+	line-height: .15;
+	white-space: nowrap;
+	border-collapse: separate;
+	border-spacing: 16px 0;
+	border-spacing: 1rem 0;
+	width: 100%;
+	display: table;
+	table-layout: auto;
+	&:before, &:after {
+		content: '';
+	    border-top: 2px solid;
+	  	width: 50%;
+	  	display: table-cell;
+	}
+}
+
+
+/*
+* Opacity Function
+*/
+@function black($opacity) {
+	@return rgba(black, $opacity)
+}
+
+@function white($opacity) {
+	@return rgba(white, $opacity)
+}
+
+/*
+* Mixin Zero Out 
+*/
+@mixin zero_out {
+	margin: 0;
+	padding: 0;
+}
+
+/*
+* Mixin !00% Viewpoint 
+*/
+@mixin viewpoint {
+	width: 100vw;
+	height: 100vh;
+}
+
+/*
+* Mixin Center Block 
+*/
+@mixin center_block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*
+* Mixin absolute 
+* @include abs-pos(10px, 10px, 5px, 15px);
+*/
+@mixin abs_pos ($top: auto, $right: auto, $bottom: auto, $left: auto) {
+	position: absolute;
+	top: $top;
+	right: $right;
+	bottom: $bottom;
+	left: $left;
+}
+
+/*
+* Mixin absolute centering 
+*/
+@mixin abs_center($z: null) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: $z;
+}
+
+
+/*
+* Mixin transition 
+* @include transition(color .3s ease);
+*/
+@mixin transition($args...) {
+	-webkit-transition: $args;
+	-moz-transition: $args;
+	-ms-transition: $args;
+	-o-transition: $args;
+	transition: $args;
+}
+
+@mixin nav_list {
+	@include zero_out();
+    list-style-type: none;
+	float: left;
+    > li {
+        display: block;
+        float: left;
+        position: relative;
+        &:last-child {  
+            margin-right: 0;
+        }
+    }
+}
+
+/*
+* Mixin transition 
+* @include opacity(0.8);
+*/
+@mixin opacity($opacity) {
+	opacity: $opacity;
+	$opacity-ie: $opacity * 100;
+	filter: alpha(opacity=$opacity-ie); //IE8
 }
 
 /*
@@ -28,64 +188,60 @@
 	    content: " "; /* 1 */
 	    display: table; /* 2 */
 	}
-
 	&:after {
 	    clear: both;
 	}
 }
 
-/*
- * Mixin for basic CSS triangles
- * @include triangle(up, #000, 50px)
-*/
-@mixin triangle($direction:up, $color:#000, $size:100px) {
-	@if($direction == up) {
-		border-color: transparent transparent $color;
-		border-style: solid;
-		border-width: 0 $size $size;
-		height: 0;
-		width: 0;
-	}
-	@if($direction == down) {
-		border-color: $color transparent transparent transparent;
-		border-style: solid;
-		border-width: $size;
-		height:0;
-		width:0;
-	}
-	@if($direction == left) {
-		border-color: transparent $color transparent transparent;
-		border-style: solid;
-		border-width: $size $size $size 0;
-		height: 0;
-		width: 0;
-	}
-	@if($direction == right) {
-		border-color: transparent transparent transparent $color;
-		border-style: solid;
-		border-width: $size 0 $size $size;
-		height:0;
-		width:0;
-	}
+@mixin full_block {
+	@include clearfix();
+	width: 100%;
+}
+
+@mixin border_radius($radius) {
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+  background-clip: padding-box;  /* stops bg color from leaking outside the border: */
 }
 
 /*
- * @font-face mixin
- * Bulletproof font-face via Font Squirrel
- * @include fontface('family', 'assets/fonts/', 'myfontname');
- */
+ * Mixin for buttons
+ * @include button(#fff, #000, $bdcolor: #fff, $v_padding: 1em, $h_padding: 1em);
+*/
+@mixin button ($fontcolor, $bgcolor: transparent, $bdcolor: null, $v_padding: null, $h_padding: null ) {
+	@include transition(background 0.1s linear);
+	color: $fontcolor;
+	text-decoration: none;
+	cursor: pointer;
+	background-color: $bgcolor;
+	border: 1px solid;
+	border-color: $bdcolor;
+	vertical-align: middle;
+	padding-top: $v_padding;
+	padding-right: $h_padding;
+	padding-bottom: $v_padding;
+	padding-left: $h_padding;
+	display: inline-block;
+}
 
-@mixin fontface($font-family, $font-url, $font-name) {
-	@font-face {
-		font: {
-			family: $font-family;
-			style: normal;
-			weight: normal;
-		}
-		src: url($font-url + '/' + $font-name + '.eot');
-		src: url($font-url + '/' + $font-name + '.eot#iefix') format('embedded-opentype'),
-			 url($font-url + '/' + $font-name + '.woff') format('woff'),
-			 url($font-url + '/' + $font-name + '.ttf')  format('truetype'),
-			 url($font-url + '/' + $font-name + '.svg#' + $font-name) format('svg');
+/*
+* @include button_hover(#fff, #990000, 1em);
+*/
+@mixin button_hover ($fontcolor: null, $bgcolor: null) { 
+	color: $fontcolor;
+	background-color: $bgcolor; 
+	text-decoration: none;
+}
+
+@mixin animate_delay($duration: 3s, $delay: 2s, $count: null ) {
+	@include animation-duration($duration);
+	@include animation-delay($delay);
+	@include animation-iteration-count($count);
+}
+
+@mixin gf_reset {
+	ul, li {
+		@include zero_out();
+		list-style-type: none;
 	}
 }

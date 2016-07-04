@@ -1,0 +1,232 @@
+// hero
+.hero {
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	background-size: cover;
+	min-height: 450px;
+	position: relative;
+	.page_header {
+		@include grid_row();
+		@include abs_center($z: 1);
+		* {
+			color: $white;
+		}
+		.title, .entry {
+			@include grid_column(8, $center: true);
+			text-align: center;
+		}
+		.entry {
+			display: none;
+			@include bp(medium_up) {
+				display: block;
+			}
+		}
+	}
+}
+
+.hero {
+	background-color: $black;
+	width: 100vw;
+	position: relative;
+	z-index: 1;
+	&.big {
+		height: 100vh;
+	}
+	.hero_entry {
+		@include grid_column(12, $center:true);
+		position: relative;
+		z-index: 10;
+		@include bp(medium_up) {
+			@include grid_column(8, $center:true);
+			@include abs_center();
+			@include animate_delay(.5s, .8s);
+		}
+		* {
+			color: $white;	
+		}
+		.tag, .year {
+			text-align: center;
+			@include bp(medium_up) {
+				@include side_lines();
+				font-size: em(24px);
+			}
+			
+		}
+		.tag {
+			@include bp(small) {
+				color: $yel;
+				border: 1px solid $white;
+				border-width: 1px 0;
+				margin: 2em 0;
+				padding: 0.8em 0;
+			}
+		}
+		.year {
+			font-size: em(38px);
+			@include bp(small) {
+				font-size: em(20px);
+			}
+		}
+	}
+	
+}
+
+.masthead_video, .masthead_poster {
+    @include abs_pos(0, auto, auto, 0);
+    width: 100%;
+    height: 100%;
+}
+
+.masthead_poster {
+	img {
+		max-width: none;
+	}
+}
+
+.header_container {
+	@include full_block();
+	position: relative;
+	@include bp(medium_up) {
+		@include abs_pos(0, auto, auto, 0);
+	}
+	padding: 0.8em 0;
+	.main {
+		@include grid_row();
+		.logo {
+			@include grid_column(4);
+			@include bp(small) {
+				@include grid_column(9);
+			}
+			h1 {
+				font-size: em(24px);
+				margin: 0;
+				@include bp(medium_up) {
+					margin: em(5px) 0 0;
+				}
+				a {
+					color: $white;
+				}
+				
+			}
+		}
+		.primary {
+			@include grid_column(8);
+			@include bp(small) {
+				display: none;
+			}
+			.sur-menu {
+				@include nav_list();
+				padding-top: 3px;
+				float: right;
+				> li {
+					margin-left: 1em;
+					padding: em(7px) 0 em(10px);
+					&.cta {
+						padding: 0;
+					}
+					a, a:link {
+						@include f_osb;
+						color: $white;
+						font-size: em(14px);
+						&:hover {
+							color: $yel;
+						}
+						&.btn {
+							@include button(#fff, $v_padding: 0.5em, $h_padding: 0.8em);
+							&:hover {
+								@include button_hover($bgcolor: black(0.8));
+								color: $white;
+							}
+						}
+					}
+				}
+			}
+		}
+		.primary_mobile {
+			@include grid_column(3);
+			display: none;
+			a {
+				text-indent: -999em;
+				background: url(#{$imgPath}/logo_ham.svg) no-repeat 0 0 / contain;
+				width: 50px;
+				height: 25px;
+				display: block;
+			}
+			@include bp(small) {
+				display: block;
+			}
+		}
+	}	
+}
+
+.header_container--clone {
+	background-color: black(0.75);
+    /* Required styles */
+    position: fixed;
+    z-index: 2;
+
+    /* Translate -100% to move off screen */
+    -webkit-transform: translateY(-100%);
+        -ms-transform: translateY(-100%);
+            transform: translateY(-100%);
+
+    /* Animations */
+    -webkit-transition: all 300ms ease-in-out;
+       -moz-transition: all 300ms ease-in-out;
+            transition: all 300ms ease-in-out;
+
+}
+
+.header_container--stick {
+
+    /* Translate back to 0%; */
+    -webkit-transform: translateY(0%);
+        -ms-transform: translateY(0%);
+            transform: translateY(0%);
+}
+
+.countdown {
+	display: none;
+	@include bp(medium_up) {
+		display: block;
+	}
+}
+
+#timer {
+	text-align: center;
+  	list-style: none;
+  	margin: em(20px) 0;
+  	padding: 0;
+  	display: block;
+  	@include bp(small) {
+  		@include grid_row();
+  	}
+  	li {
+  		padding: 3em 0;
+	  	display: inline-block;
+	  	@include bp(small) {
+	  		@include grid_column(3);
+	  	}
+	  	span {
+	  		@include f_ossb();
+	  		font-size: em(80px);
+	  		@include bp(small) {
+		  		font-size: em(30px);
+		  	}
+	  		line-height: 0.2em;
+	  		margin: 0;
+	  	}
+	  	p {
+			color: $yel;
+			font-size: em(14px);
+			font-weight: bold;
+			margin: 0;
+	  	}
+	}
+	.seperator {
+		padding: 1px 1em;
+		@include bp(small) {
+			display: none;
+		}
+	}
+}

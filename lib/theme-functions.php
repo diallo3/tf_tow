@@ -89,9 +89,38 @@ function mb_scripts() {
 	}
 
 	if ( !is_admin() ) {
-		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'customplugins', get_template_directory_uri() . '/assets/js/plugins.min.js', array('jquery'), NULL, true );
-		wp_enqueue_script( 'customscripts', get_template_directory_uri() . '/assets/js/main.min.js', array('jquery'), NULL, true );
+		// Register Script
+
+		wp_register_script( 'modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr.js', array(), NULL, false );
+		wp_register_script( 'foundation', get_template_directory_uri() . '/assets/js/foundation/foundation.min.js', array(), NULL, true );
+		wp_register_script( 'reveal', get_template_directory_uri() . '/assets/js/foundation/foundation.reveal.js', array(), NULL, true );
+		wp_register_script( 'offcanvas', get_template_directory_uri() . '/assets/js/foundation/foundation.offcanvas.js', array(), NULL, true );
+		wp_register_script( 'skrollr', get_template_directory_uri() . '/assets/js/vendor/skrollr.min.js', array(), NULL, true );
+		wp_register_script( 'acfmap', get_template_directory_uri() . '/assets/js/vendor/acfmap.js', array(), NULL, true );
+		wp_register_script( 'covervid', get_template_directory_uri() . '/assets/js/vendor/covervid.min.js', array(), NULL, true );
+		wp_register_script( 'countdown', get_template_directory_uri() . '/assets/js/vendor/jquery.countdown.min.js', array(), NULL, true );
+		wp_register_script( 'home', get_template_directory_uri() . '/assets/js/vendor/home.js', array('jquery'), NULL, true );
+		wp_register_script( 'customplugins', get_template_directory_uri() . '/assets/js/plugins.min.js', array('jquery'), NULL, true );
+		wp_register_script( 'customscripts', get_template_directory_uri() . '/assets/js/main.min.js', array('jquery'), NULL, true );
+
+		wp_enqueue_script( 'modernizr' );
+		wp_enqueue_script( 'foundation' );
+		wp_enqueue_script( 'reveal' );
+		wp_enqueue_script( 'offcanvas' );
+		wp_enqueue_script( 'skrollr' );
+		wp_enqueue_script( 'customplugins' );
+		wp_enqueue_script( 'customscripts' );
+
+		if ( is_front_page() ) {
+			wp_enqueue_script( 'covervid' );
+			wp_enqueue_script( 'countdown' );
+			wp_enqueue_script( 'home' );
+		}
+
+		global $post;
+		$countdown = get_field('countdown_date', 24);
+  		$data = array( 'day' => $countdown );
+  		wp_localize_script( 'home', 'home_var', $data );
 	}
 }
 

@@ -2,15 +2,24 @@
    Variables
    ========================================================================== */
 
-// Font Face
-// @include fontface('FONT_NAME', 'assets/fonts/', 'FONT_FAMILY');
+@include web-fonts( ("Open Sans": ("400", "400 italic", "600", "700")) );
 
-// Structure
-$pageWidth: 1000px;
+$open-sans: 'Open Sans', 'Helvetica Neue', sans-serif;
+
+$imgPath: "assets/images";
+$fontPath: "assets/fonts";
+
+$contactHeight: 600px;
+
+$headshot_w: 150px;
+$head_half: (-($headshot_w / (-2) ));
 
 // Text Selection
-$selectionColor: orange;
+$selectionColor: #eee;
 
 // Colors
-$red: red;
-$blue: blue;
+$tan: #994f13;
+$yel: #ffcc66;
+$bro: #75542d;
+
+

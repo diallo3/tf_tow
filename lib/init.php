@@ -43,6 +43,7 @@ function _mbbasetheme_setup() {
 	register_nav_menus( array(
 		'primary' => __( 'Primary Menu', 'mbbasetheme' ),
 		'secondary' => __( 'Secondary Menu', 'mbbasetheme' ),
+		'footer' => __( 'Footer Menu', 'mbbasetheme' ),
 		) 
 	);
 
@@ -121,13 +122,6 @@ function _mbbasetheme_setup() {
 	add_theme_support( 'get-the-image' );
 	add_theme_support( 'breadcrumb-trail' );
 	add_theme_support( 'entry-views' );
-	add_theme_support( 'theme-layouts', array(
-			'1c'        => __( '1 Column',                     '_mbbasetheme' ),
-			'2c-l'      => __( '2 Columns: Content / Sidebar', '_mbbasetheme' ),
-			'2c-r'      => __( '2 Columns: Sidebar / Content', '_mbbasetheme' )
-		),
-		array( 'default' => is_rtl() ? '2c-r' :'2c-l' ) 
-	);
 
 }
 endif; // _mbbasetheme_setup

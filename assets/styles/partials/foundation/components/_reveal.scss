@@ -37,7 +37,7 @@ $reveal-round: $global-rounded !default;
 
 // We use these to control the modal border
 $reveal-border-style: solid !default;
-$reveal-border-width: 1px !default;
+$reveal-border-width: 0px !default;
 $reveal-border-color: $steel !default;
 
 $reveal-modal-class: "reveal-modal" !default;
@@ -75,7 +75,7 @@ $close-reveal-modal-class: "close-reveal-modal" !default;
     z-index: 1005;
     width: 100vw;
     top:0;
-    border-radius: $border-radius;
+    // border-radius: $border-radius;
     #{$default-float}: 0;
 
     @media #{$small-only} {
